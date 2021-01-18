@@ -25,7 +25,7 @@ HashMap<String, String> map4 = new HashMap<>() {{
 }};     // 초기 값 지정
 ```
 
-HashMap은 저장공간을 초과해서 값이 들어오면 공간을 늘리는데 들어오는만큼 늘리는 것이 아니라 약 두 배로 늘립니다. 따라서 초기에 저장할 데이터의 개수를 알고 있다면 초기 사이즈를 지정해주는 것이 좋습니다.
+HashMap은 저장공간을 초과해서 값이 들어오면 공간을 늘리는데 들어오는만큼 늘리는 것이 아니라 약 두 배로 늘린다. 따라서 초기에 저장할 데이터의 개수를 알고 있다면 초기 사이즈를 지정해주는 것이 좋다.
 
 ---
 
@@ -164,3 +164,112 @@ System.out.println(map);
 apple  
 null  
 map: {b=banana, a=ant, c=carrot}
+
+---
+
+### getOrDefault() / putIfAbsent() / computeIfAbsent() / computeIfPresent()
+
+- `getOrDefault(Object Key, Object defaultValue)` : 전달된 key가 존재하면 해당 key의 value를 반환하고, 없으면 설정한 default 값을 반환. 단, 해당 값이 map에 저장되지는 않는다.
+
+```java
+Map<String, String> map = new HashMap<>();
+map.put("a", "apple");
+map.put("b", "banana");
+
+System.out.println(map.getOrDefault("a", "fruit"));
+System.out.println(map.getOrDefault("z", "fruit"));
+
+for (char c : map.keySet() ) {
+			System.out.printf("%s %s\n", c, map.get(c));
+		}
+```
+
+<출력>  
+apple  
+fruit  
+a apple  
+b banana
+
+- `putIfAbsent(Object Key, Object Value)` : key의 값이 없거나 null이면 값을 추가한다. 위와 비슷해 보이지만 getOrDefault는 값을 저장하지 않고, putIfAbsent는 map에 새롭게 추가된다.
+
+```java
+Map<String, String> map = new HashMap<>();
+map.put("a", "apple");
+map.put("b", "banana");
+
+System.out.println(map.putIfAbsent("a", "fruit"));
+System.out.println(map.putIfAbsent("z", "fruit"));
+
+for (char c : map.keySet() ) {
+			System.out.printf("%s %s\n", c, map.get(c));
+		}
+```
+
+<출력>  
+apple  
+fruit  
+a apple  
+b banana  
+z fruit
+
+- `compute()` : key의 값에 대해 어떻게 연산할지 정의한다. 존재하지 않는 key를 전달받으면 에러(NullPointerException)가 발생한다.
+
+```java
+Map<String, Integer> map = new HashMap<>();
+map.put("a", 0);
+map.put("b", 0);
+
+System.out.println(map.compute("a", (k, v) -> ++v));
+
+for (char c : map.keySet() ) {
+			System.out.printf("%c %d\n", c, map.get(c));
+		}
+```
+
+<출력>  
+1  
+a 1  
+b 0
+
+- `computeIfAbsent()` : key의 값이 없을 경우에만 function이 실행되고, key의 값이 있을 경우 기존 key의 value 값을 반환한다.
+
+```java
+Map<String, Integer> map = new HashMap<>();
+map.put("a", 0);
+map.put("b", 0);
+
+System.out.println(map.computeIfAbsent("a", key -> 10));
+System.out.println(map.computeIfAbsent("f", key -> 10));
+
+for (char c : map.keySet() ) {
+			System.out.printf("%c %d\n", c, map.get(c));
+		}
+```
+
+<출력>  
+0  
+10  
+a 0  
+b 0  
+f 10
+
+- `computeIfPresent()` : computeIfAbsent()와 반대로 key의 값이 존재할 경우에만 람다식이 실행된다. key의 값이 존재하지 않을 경우, null을 반환한다.
+
+```java
+Map<String, Integer> map = new HashMap<>();
+map.put("a", 0);
+map.put("b", 0);
+
+System.out.println(map.computeIfPresent("a", (k, v) -> ++v));
+System.out.println(map.computeIfPresent("f", (k, v) -> ++v));
+
+for (char c : map.keySet() ) {
+			System.out.printf("%c %d\n", c, map.get(c));
+		}
+```
+
+<출력>  
+1  
+null  
+a 1  
+b 0
