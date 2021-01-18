@@ -7,6 +7,14 @@
 
 # 🔗 LIST
 
+## 📌 JAVA
+
+[JVM, JRE, JDK](https://github.com/da1907/TIL/blob/main/JAVA/JVM%2CJRE%2CJDK.md)
+
+## 📌 Data Structure
+
+[HashMap](https://github.com/da1907/TIL/blob/main/Data%20Structure/HashMap.md)
+
 ## 📌 ETC
 
 [markdown](https://github.com/da1907/TIL/blob/main/ETC/markdown.md)
