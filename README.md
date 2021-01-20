@@ -22,3 +22,7 @@
 ## 📌WEB
 
 [browser](https://github.com/da1907/TIL/blob/main/WEB/browser.md)
+
+## 📌GIT
+
+[Delete message](https://github.com/da1907/TIL/blob/main/git/delete.md)
