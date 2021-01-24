@@ -9,7 +9,8 @@
 
 ## 📌 JAVA
 
-[JVM, JRE, JDK](https://github.com/da1907/TIL/blob/main/JAVA/JVM%2CJRE%2CJDK.md)
+[JVM, JRE, JDK](https://github.com/da1907/TIL/blob/main/JAVA/JVM%2CJRE%2CJDK.md)  
+[Overloading vs Overriding](https://github.com/da1907/TIL/blob/main/JAVA/overloading_VS_overriding.md)
 
 ## 📌 Data Structure
 
